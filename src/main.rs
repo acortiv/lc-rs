@@ -1,3 +1,5 @@
+mod graphs;
+
 fn main() {
-    println!("Hello, world!");
+    println!("Run tests instead.");
 }
