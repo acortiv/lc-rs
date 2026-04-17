@@ -26,6 +26,7 @@ fn find_circle_num_bfs(is_connected: Vec<Vec<i32>>) -> i32 {
     unimplemented!()
 }
 
+/// Union Find
 struct UnionFind {
     parents: Vec<usize>,
     ranks: Vec<usize>,
