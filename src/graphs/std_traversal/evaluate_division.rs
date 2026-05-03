@@ -56,7 +56,7 @@ impl UnionFind {
         }
     }
 
-    pub fn find(&mut self, x: usize) -> (usize) {
+    pub fn find(&mut self, x: usize) -> usize {
         if x != self.roots[x] {
             let parent = self.roots[x];
             let root = self.find(parent);

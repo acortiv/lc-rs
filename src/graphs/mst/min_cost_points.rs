@@ -75,7 +75,6 @@ fn m_value(xi: i32, xj: i32, yi: i32, yj: i32) -> i32 {
 
 pub fn min_cost_connect_points_prim_not_optimized(points: Vec<Vec<i32>>) -> i32 {
     let n = points.len();
-
     if n <= 1 {
         return 0;
     }
@@ -83,13 +82,14 @@ pub fn min_cost_connect_points_prim_not_optimized(points: Vec<Vec<i32>>) -> i32 
     let mut p_queue: BinaryHeap<(Reverse<i32>, usize)> = BinaryHeap::new();
     let mut visited = vec![false; n];
     let mut count = n - 1;
+    let mut result = 0;
+
     for j in 1..n {
         let cost = m_value(points[0][0], points[j][0], points[0][1], points[j][1]);
         p_queue.push((Reverse(cost), j));
     }
 
     visited[0] = true;
-    let mut result = 0;
 
     while let Some((c, v)) = p_queue.pop() {
         if count == 0 {
@@ -108,16 +108,21 @@ pub fn min_cost_connect_points_prim_not_optimized(points: Vec<Vec<i32>>) -> i32 
             count -= 1;
         }
     }
+
     result
 }
 
 // Prim's optimized
 pub fn min_cost_connect_points(points: Vec<Vec<i32>>) -> i32 {
     let n = points.len();
+    if n <= 1 {
+        return 0;
+    }
+
     let mut visited = vec![false; n];
     let mut min_cost = vec![i32::MAX; n];
-
     let mut result = 0;
+
     min_cost[0] = 0;
 
     for _ in 0..n {
