@@ -5,12 +5,15 @@ pub fn valid_tree(n: i32, edges: Vec<Vec<i32>>) -> bool {
     for edge in edges.iter() {
         let u = edge[0] as usize;
         let v = edge[1] as usize;
+        // if the nodes have already been joined via a shared ancestor,
+        // then this will for a ciruclar reference
         if uf.find(u) == uf.find(v) {
             return false;
         }
         uf.union(u, v);
     }
 
+    // confirm there are no disjoint sets and everything has been unioned
     edges.len() == (n - 1) as usize
 }
 
