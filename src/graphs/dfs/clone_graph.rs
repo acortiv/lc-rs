@@ -15,14 +15,14 @@ struct Node {
 
 fn clone_graph(nodes: Vec<Vec<Node>>) -> Graph {
     let n = nodes.len();
-    let mut visited = vec![false; n];
-    let mut graph = Graph {
+    let _visited = vec![false; n];
+    
+
+    Graph {
         vertices: n,
         edges: n - 1,
         nodes: vec![],
-    };
-
-    graph
+    }
 }
 
 fn dfs() -> () {

@@ -4,7 +4,7 @@ fn find_circle_num_dfs(is_connected: Vec<Vec<i32>>) -> i32 {
     let mut number_of_components = 0;
 
     for i in 0..n {
-        if visit[i] == false {
+        if !visit[i] {
             number_of_components += 1;
             dfs(i, &is_connected, &mut visit);
         }
@@ -16,13 +16,13 @@ fn find_circle_num_dfs(is_connected: Vec<Vec<i32>>) -> i32 {
 fn dfs(node: usize, is_connected: &[Vec<i32>], visit: &mut [bool]) {
     visit[node] = true;
     for (neighbor, &connected) in is_connected[node].iter().enumerate() {
-        if connected == 1 && visit[neighbor] == false {
+        if connected == 1 && !visit[neighbor] {
             dfs(neighbor, is_connected, visit)
         }
     }
 }
 
-fn find_circle_num_bfs(is_connected: Vec<Vec<i32>>) -> i32 {
+fn find_circle_num_bfs(_is_connected: Vec<Vec<i32>>) -> i32 {
     unimplemented!()
 }
 

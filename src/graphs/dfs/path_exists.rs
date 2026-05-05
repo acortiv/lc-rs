@@ -1,5 +1,5 @@
 pub fn valid_path(n: i32, edges: Vec<Vec<i32>>, source: i32, destination: i32) -> bool {
-    if edges.len() == 0 {
+    if edges.is_empty() {
         return source == destination;
     }
 
@@ -16,9 +16,9 @@ pub fn valid_path(n: i32, edges: Vec<Vec<i32>>, source: i32, destination: i32) -
         adj_list[v].push(u);
     }
 
-    let path = dfs(source, &mut visited, &adj_list, destination);
+    
 
-    path
+    dfs(source, &mut visited, &adj_list, destination)
 }
 
 fn dfs(vertex: usize, visited: &mut [bool], adj_list: &[Vec<usize>], destination: usize) -> bool {
@@ -30,11 +30,10 @@ fn dfs(vertex: usize, visited: &mut [bool], adj_list: &[Vec<usize>], destination
     }
 
     for &edge in adj_list[vertex].iter() {
-        if !visited[edge] {
-            if dfs(edge, visited, adj_list, destination) {
+        if !visited[edge]
+            && dfs(edge, visited, adj_list, destination) {
                 return true;
             }
-        }
     }
 
     false
