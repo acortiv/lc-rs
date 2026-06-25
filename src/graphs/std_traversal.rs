@@ -2,6 +2,7 @@
 
 mod earliest_friends;
 mod evaluate_division;
+mod find_eventual_safe_states;
 mod graph_valid_tree;
 mod num_connected_components;
 mod number_of_provinces;
