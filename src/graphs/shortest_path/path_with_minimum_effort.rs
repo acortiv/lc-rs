@@ -22,7 +22,7 @@ pub fn minimum_effort_path(heights: Vec<Vec<i32>>) -> i32 {
             .map(|(dr, dc)| (r + dr, c + dc))
             .filter(|&(nr, nc)| {
                 (nr >= 0 && nc >= 0)
-                    && (nr <= rows - 1 && nc <= cols - 1)
+                    && (nr < rows && nc < cols)
                     && (!visited[nr as usize][nc as usize])
             })
             .collect();

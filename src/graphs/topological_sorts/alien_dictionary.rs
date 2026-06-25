@@ -34,7 +34,7 @@ pub fn alien_order_dirty(words: Vec<String>) -> String {
             match packed {
                 packed if packed.0 > packed.1 => {
                     let (_, s_prime_len) = packed;
-                    if &words[i][0..s_prime_len] == &words[j][..] {
+                    if words[i][0..s_prime_len] == words[j][..] {
                         return "".into();
                     }
                 }
@@ -80,7 +80,7 @@ pub fn alien_order_dirty(words: Vec<String>) -> String {
     }
 
     if res.len() != m {
-        return "".to_string();
+        "".to_string()
     } else {
         res.into_iter().collect()
     }

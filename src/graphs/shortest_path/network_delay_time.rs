@@ -19,7 +19,7 @@ pub fn network_delay_time(times: Vec<Vec<i32>>, n: i32, k: i32) -> i32 {
 
     // Binary heap for traversing the graph
     let mut q: BinaryHeap<(Reverse<i32>, usize)> = BinaryHeap::new();
-    q.push((Reverse(0), (k - 1) as usize));
+    q.push((Reverse(0), ((k - 1))));
 
     let mut ans;
     let mut seen = 0;
