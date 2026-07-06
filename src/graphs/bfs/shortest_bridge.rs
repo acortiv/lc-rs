@@ -12,19 +12,22 @@ pub fn shortest_bridge(grid: Vec<Vec<i32>>) -> i32 {
     let n = grid.len();
 
     // find first 1 of first island
-    let mut origin = None;
+    let origin = (0..n)
+        .flat_map(|r| (0..n).map(move |c| (r, c)))
+        .find(|&(r, c)| grid[r][c] == 1)
+        .expect("The problem guarantees there will always be two islands!");
 
-    'outer: for i in 0..n {
+    /* 'outer: for i in 0..n {
         for j in 0..n {
             if grid[i][j] == 1 {
                 origin = Some((i, j));
                 break 'outer;
             }
         }
-    }
+    } */
 
     let mut island = HashSet::new();
-    dfs(origin.unwrap(), &grid, &mut island, &DIRS);
+    dfs(origin, &grid, &mut island, &DIRS);
 
     let mut q: VecDeque<((usize, usize), i32)> = island.iter().map(|&(r, c)| ((r, c), 0)).collect();
 
