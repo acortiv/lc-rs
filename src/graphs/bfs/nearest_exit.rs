@@ -20,11 +20,12 @@ pub fn nearest_exit(maze: Vec<Vec<char>>, entrance: Vec<i32>) -> i32 {
         for col in 0..column_count {
             match (row, col) {
                 (row, column)
-                    if (((row == 0 || row == row_count - 1)
-                        || (col == 0 || col == column_count - 1)))
-                    && maze[row][column] == '.' => {
-                        exits.push((row, column))
-                    }
+                    if ((row == 0 || row == row_count - 1)
+                        || (col == 0 || col == column_count - 1))
+                        && maze[row][column] == '.' =>
+                {
+                    exits.push((row, column))
+                }
                 _ => {}
             }
         }
@@ -37,7 +38,7 @@ pub fn nearest_exit(maze: Vec<Vec<char>>, entrance: Vec<i32>) -> i32 {
     let mut visited = vec![vec![false; column_count]; row_count];
 
     while let Some((row, col, traveled)) = q.pop_front() {
-        if exits.contains((&(row, col))) && (row, col) != (entrance.0, entrance.1) {
+        if exits.contains(&(row, col)) && (row, col) != (entrance.0, entrance.1) {
             return traveled;
         }
         let (row, col) = (row as isize, col as isize);
