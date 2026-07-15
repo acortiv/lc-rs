@@ -15,7 +15,7 @@ pub fn ladder_length(begin_word: String, end_word: String, word_list: Vec<String
             let mut w_word: Vec<char> = word.clone().chars().collect();
             w_word[i] = '*';
             let w_word: String = w_word.iter().collect();
-            graph.entry(w_word).or_insert(Vec::new()).push(word.clone());
+            graph.entry(w_word).or_default().push(word.clone());
         }
     }
 
