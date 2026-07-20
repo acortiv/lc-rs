@@ -2,6 +2,7 @@
 
 mod bfs;
 mod dfs;
+mod matrix;
 mod mst;
 mod shared;
 mod shortest_path;
