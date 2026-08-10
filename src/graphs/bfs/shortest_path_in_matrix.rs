@@ -12,39 +12,60 @@ const DIRECTIONS: [(isize, isize); 8] = [
     (-1, -1),
     (1, -1),
 ];
+
 pub fn shortest_path_binary_matrix(grid: Vec<Vec<i32>>) -> i32 {
-    // origin is grid[0][0] and end is grid[grid.len() - 1][grid[0].len() - 1]
-    if grid[0][0] == 1 || grid[grid.len() - 1][grid[0].len() - 1] == 1 {
+    if grid[0][0] == 1 {
         return -1;
     }
 
-    // Queue + Visited Map
-    let mut q: VecDeque<(isize, isize, i32)> = VecDeque::new();
-    let mut visited = vec![vec![0; grid[0].len()]; grid.len()];
+    // down, up, right, left, down + right, down + left, up + right, up + left
+    const DIRS: [(isize, isize); 8] = [
+        (1, 0),
+        (-1, 0),
+        (0, 1),
+        (0, -1),
+        (1, 1),
+        (1, -1),
+        (-1, 1),
+        (-1, -1),
+    ];
 
-    // Add the origin
-    q.push_back((0, 0, 1));
-    visited[0][0] = 1;
+    let (m, n) = (grid.len(), grid[0].len());
+    let mut visited = vec![vec![false; n]; m];
+    let mut q = VecDeque::new();
 
-    while let Some(node) = q.pop_front() {
-        if (node.0 == ((grid.len() - 1) as isize)) && (node.1 == ((grid[0].len() - 1) as isize)) {
-            return node.2;
+    q.push_back(((0, 0), 1));
+    visited[0][0] = true;
+
+    while let Some(((r, c), dist)) = q.pop_front() {
+        if (r == m - 1) && (c == n - 1) {
+            let ret = if grid[r][c] == 0 { dist } else { -1 };
+            return ret;
         }
-        for (dx, dy) in DIRECTIONS.iter() {
-            let next_x = node.0 + dx;
-            let next_y = node.1 + dy;
-            if !(next_x <= ((grid.len() - 1) as isize)
-                && next_y <= ((grid[0].len() - 1) as isize)
-                && (next_x >= 0 && next_y >= 0))
-            {
+
+        for &(dr, dc) in &DIRS {
+            let Some(nr) = r.checked_add_signed(dr) else {
+                continue;
+            };
+
+            let Some(nc) = c.checked_add_signed(dc) else {
+                continue;
+            };
+
+            if nr >= m || nc >= n {
                 continue;
             }
-            let next_x = next_x as usize;
-            let next_y = next_y as usize;
-            if grid[next_x][next_y] == 0 && visited[next_x][next_y] == 0 {
-                visited[next_x][next_y] = 1;
-                q.push_back((next_x as isize, next_y as isize, node.2 + 1));
+
+            if visited[nr][nc] {
+                continue;
             }
+
+            if grid[nr][nc] == 1 {
+                continue;
+            }
+
+            visited[nr][nc] = true;
+            q.push_back(((nr, nc), dist + 1));
         }
     }
 
